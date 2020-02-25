@@ -21,6 +21,7 @@ protocol RaceMapProtocol {
 
 class RaceExpandedView: UIView {
     
+    private(set) var expandedHeight: CGFloat?
     private var isExpanded: Bool = false {
         didSet {
             //            mapDescriptionLabel.isHidden = isExpanded ? false : true
@@ -102,7 +103,7 @@ class RaceExpandedView: UIView {
         label.numberOfLines = 1
         return label
     }()
-    lazy var moreLabel: UILabel = {
+    private lazy var moreLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         //           label.adjustsFontSizeToFitWidth = true
@@ -112,7 +113,7 @@ class RaceExpandedView: UIView {
         label.numberOfLines = 1
         return label
     }()
-    lazy var mapDescriptionLabel: UILabel = {
+    lazy internal var mapDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         //           label.adjustsFontSizeToFitWidth = true
@@ -122,7 +123,7 @@ class RaceExpandedView: UIView {
         label.numberOfLines = 0
         return label
     }()
-    lazy var mapImageView: UIImageView = {
+    lazy internal var mapImageView: UIImageView = {
         
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -131,7 +132,7 @@ class RaceExpandedView: UIView {
         return iv
         
     }()
-    lazy var raceDescriptionLabel: UILabel = {
+    lazy internal var raceDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         //           label.adjustsFontSizeToFitWidth = true
@@ -154,6 +155,9 @@ class RaceExpandedView: UIView {
         mapDescriptionLabel.text = object.mapDescriptuon
         mapImageView.image = object.mapImage
         raceDescriptionLabel.text = object.raceDescription
+        
+      calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
+        
     }
     
     override init(frame: CGRect) {
@@ -182,17 +186,19 @@ class RaceExpandedView: UIView {
 
 private extension RaceExpandedView {
     @objc func moreButtonTapped() {
+        
         print(#function)
         isExpanded = !isExpanded
-        
-        UIView.animate(withDuration: 0.4) {
-            self.frame.size.height = self.isExpanded ? 200:50
-            if (self.isExpanded) {
-                self.setupExpandedViews()
-            } else {
-                self.expandedMapDescriptionView.removeFromSuperview()
-                 self.expandedMapImageView.removeFromSuperview()
-                 self.expandedRaceDescriptionView.removeFromSuperview()
+        if let exHeight = expandedHeight {
+            UIView.animate(withDuration: 0.4) {
+                self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
+                if (self.isExpanded) {
+                    self.setupExpandedViews()
+                } else {
+                    self.expandedMapDescriptionView.removeFromSuperview()
+                    self.expandedMapImageView.removeFromSuperview()
+                    self.expandedRaceDescriptionView.removeFromSuperview()
+                }
             }
         }
     }
@@ -243,11 +249,27 @@ private extension RaceExpandedView {
             make.width.bottom.equalToSuperview()
         }
         
+
+    }
+     
+    func getLabelHeight(text: String, font: UIFont, paddings: CGFloat) -> CGFloat {
         
-        
-        
-        ///
-        
+        let screenWidth = UIScreen.main.bounds.width
+        let labelWidth = screenWidth - ( 2 * paddings ) // (side paddings)
+        let height = text.height(withConstrainedWidth: labelWidth, font: font)
+        return height
+    }
+    
+    func calculateExpandedHeight(mapDescription: String, raceDescription: String, mapImage: UIImage?, sidePaddings: CGFloat?) {
+        let mapDescriptionHeight = getLabelHeight(text: mapDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2 //paddings top/bottom
+        var mapImageHeight: CGFloat = 0
+        if let image = mapImage {
+            mapImageHeight = image.size.height + (10 * 2) //paddings top/bottom
+        }
+        let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2  //paddings top/bottom
+              print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
+        expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight
+        print(#function, expandedHeight )
     }
     
     func setup() {
@@ -351,7 +373,14 @@ struct SomeStruct: RaceMapProtocol {
 }
 
 
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
 
+        return ceil(boundingBox.height)
+    }
+}
 
 
 
