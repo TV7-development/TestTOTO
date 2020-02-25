@@ -1,0 +1,6 @@
+module Pods_TestTOTO {
+  umbrella header "Pods-TestTOTO-umbrella.h"
+
+  export *
+  module * { export * }
+}

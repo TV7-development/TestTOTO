@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AF8CA89F18E047C1A57A689 /* libPods-TestTOTO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F6C5CC221A64FA30E2A887 /* libPods-TestTOTO.a */; };
+		AE1F2DF424041EB800B6FC84 /* RaceVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */; };
 		AEB1BC4D24040C1700BBC3E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */; };
 		AEB1BC4F24040C1700BBC3E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */; };
 		AEB1BC5124040C1700BBC3E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC5024040C1700BBC3E8 /* ViewController.swift */; };
 		AEB1BC5424040C1700BBC3E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB1BC5224040C1700BBC3E8 /* Main.storyboard */; };
 		AEB1BC5624040C1A00BBC3E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEB1BC5524040C1A00BBC3E8 /* Assets.xcassets */; };
 		AEB1BC5924040C1A00BBC3E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEB1BC5724040C1A00BBC3E8 /* LaunchScreen.storyboard */; };
+		AEB1BC6424041C9400BBC3E8 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC6324041C9400BBC3E8 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91CFDB489648E447F1B03656 /* Pods-TestTOTO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTOTO.debug.xcconfig"; path = "Target Support Files/Pods-TestTOTO/Pods-TestTOTO.debug.xcconfig"; sourceTree = "<group>"; };
+		AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceVeiw.swift; sourceTree = "<group>"; };
 		AEB1BC4924040C1700BBC3E8 /* TestTOTO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTOTO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +29,9 @@
 		AEB1BC5524040C1A00BBC3E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEB1BC5824040C1A00BBC3E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEB1BC5A24040C1A00BBC3E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEB1BC6324041C9400BBC3E8 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		CFA681450A0BABEB4376B6C3 /* Pods-TestTOTO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTOTO.release.xcconfig"; path = "Target Support Files/Pods-TestTOTO/Pods-TestTOTO.release.xcconfig"; sourceTree = "<group>"; };
+		F2F6C5CC221A64FA30E2A887 /* libPods-TestTOTO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestTOTO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AF8CA89F18E047C1A57A689 /* libPods-TestTOTO.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		580517FEBEDEB2DD8503C865 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				91CFDB489648E447F1B03656 /* Pods-TestTOTO.debug.xcconfig */,
+				CFA681450A0BABEB4376B6C3 /* Pods-TestTOTO.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9AB64028BFFAB5AE773E3497 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2F6C5CC221A64FA30E2A887 /* libPods-TestTOTO.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AEB1BC4024040C1700BBC3E8 = {
 			isa = PBXGroup;
 			children = (
 				AEB1BC4B24040C1700BBC3E8 /* TestTOTO */,
 				AEB1BC4A24040C1700BBC3E8 /* Products */,
+				580517FEBEDEB2DD8503C865 /* Pods */,
+				9AB64028BFFAB5AE773E3497 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,12 +87,22 @@
 				AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */,
 				AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */,
 				AEB1BC5024040C1700BBC3E8 /* ViewController.swift */,
+				AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */,
+				AEB1BC6224040D5900BBC3E8 /* Views */,
 				AEB1BC5224040C1700BBC3E8 /* Main.storyboard */,
+				AEB1BC6324041C9400BBC3E8 /* TestView.swift */,
 				AEB1BC5524040C1A00BBC3E8 /* Assets.xcassets */,
 				AEB1BC5724040C1A00BBC3E8 /* LaunchScreen.storyboard */,
 				AEB1BC5A24040C1A00BBC3E8 /* Info.plist */,
 			);
 			path = TestTOTO;
+			sourceTree = "<group>";
+		};
+		AEB1BC6224040D5900BBC3E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +112,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AEB1BC5D24040C1A00BBC3E8 /* Build configuration list for PBXNativeTarget "TestTOTO" */;
 			buildPhases = (
+				E18D4DDCE7179EA28AF68C5F /* [CP] Check Pods Manifest.lock */,
 				AEB1BC4524040C1700BBC3E8 /* Sources */,
 				AEB1BC4624040C1700BBC3E8 /* Frameworks */,
 				AEB1BC4724040C1700BBC3E8 /* Resources */,
@@ -133,12 +172,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E18D4DDCE7179EA28AF68C5F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TestTOTO-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AEB1BC4524040C1700BBC3E8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEB1BC6424041C9400BBC3E8 /* TestView.swift in Sources */,
 				AEB1BC5124040C1700BBC3E8 /* ViewController.swift in Sources */,
+				AE1F2DF424041EB800B6FC84 /* RaceVeiw.swift in Sources */,
 				AEB1BC4D24040C1700BBC3E8 /* AppDelegate.swift in Sources */,
 				AEB1BC4F24040C1700BBC3E8 /* SceneDelegate.swift in Sources */,
 			);
@@ -282,6 +348,7 @@
 		};
 		AEB1BC5E24040C1A00BBC3E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91CFDB489648E447F1B03656 /* Pods-TestTOTO.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +367,7 @@
 		};
 		AEB1BC5F24040C1A00BBC3E8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFA681450A0BABEB4376B6C3 /* Pods-TestTOTO.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
