@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
 //        let raceView = RaceVeiw(frame: CGRect(x:0, y: self.view.center.y, width: UIScreen.main.bounds.width, height: 50))
 //        self.view.addSubview(raceView)
-        let someObj = SomeStruct(time: "12:22", places: "1-2-3", runners: "7", mapDescriptuon: "RaceDesc riptiodajbdj hsbjhcbs jhvjs bedbsdba iubdiawb dubwakdb akwbd kawbk duba wkbdk awbdkuba kwubd ku awku dbn", mapImage: UIImage(named: "arrow"), raceDescription: "RaceDescription")
+        let someObj = SomeStruct(time: "12:22", places: "1-2-3", runners: "7", mapDescriptuon: "RaceDesc riptiodajbdj hsbjhcbs jhvjs bedbsdba iubdiawb dubwakdb akwbd kawbk duba wkbdk awbdkuba kwubd ku awku dbn", mapImage: UIImage(named: "Bitmap"), raceDescription: "RaceDescription bkbkfbdjsn  fkjbskjfbe jrnfiwnf iwi efnwin efenof nwoin foiwnf oinweoifnoiw nfoin wiefwef")
         
         let rView = RaceExpandedView(frame: CGRect(x:0, y: self.view.center.y/2, width: UIScreen.main.bounds.width, height: 50))
         rView.configure(object: someObj)

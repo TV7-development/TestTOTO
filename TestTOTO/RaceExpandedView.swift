@@ -25,53 +25,56 @@ class RaceExpandedView: UIView {
     private var isExpanded: Bool = false {
         didSet {
             //            mapDescriptionLabel.isHidden = isExpanded ? false : true
-            expandedMapDescriptionView.isHidden = isExpanded ? false : true
+//            expandedMapDescriptionView.isHidden = isExpanded ? false : true
         }
     }
     
     private lazy var timeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         return view
     }()
     private lazy var placeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = .white
         return view
     }()
     private lazy var runnerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         return view
     }()
     private lazy var moreView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         
         return view
     }()
     private lazy var expandedMapDescriptionView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
         
         return view
     }()
     private lazy var expandedMapImageView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .white
         
         return view
     }()
     private lazy var expandedRaceDescriptionView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .darkText
+        view.backgroundColor = .white
         
         return view
     }()
@@ -115,17 +118,19 @@ class RaceExpandedView: UIView {
     }()
     lazy internal var mapDescriptionLabel: UILabel = {
         let label = UILabel()
+        label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         //           label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = label.font.withSize(12)
-        label.textColor = .white
+//        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
     lazy internal var mapImageView: UIImageView = {
         
         let iv = UIImageView()
+        iv.alpha = 0
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         
@@ -134,11 +139,12 @@ class RaceExpandedView: UIView {
     }()
     lazy internal var raceDescriptionLabel: UILabel = {
         let label = UILabel()
+        label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         //           label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = label.font.withSize(12)
-        label.textColor = .white
+//        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -162,7 +168,7 @@ class RaceExpandedView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .gray
+        backgroundColor = .lightGray
         setup()
     }
     
@@ -190,15 +196,26 @@ private extension RaceExpandedView {
         print(#function)
         isExpanded = !isExpanded
         if let exHeight = expandedHeight {
+            
             UIView.animate(withDuration: 0.4) {
+                
+                self.expandedMapDescriptionView.isHidden = self.isExpanded ? false : true
+                self.expandedMapImageView.isHidden = self.isExpanded ? false : true
+                self.expandedRaceDescriptionView.isHidden = self.isExpanded ? false : true
+                self.expandedMapDescriptionView.alpha = self.isExpanded ? 1 : 0
+                self.expandedMapImageView.alpha = self.isExpanded ? 1 : 0
+                self.expandedRaceDescriptionView.alpha = self.isExpanded ? 1 : 0
+                self.mapDescriptionLabel.alpha = self.isExpanded ? 1 : 0
+                    self.mapImageView.alpha = self.isExpanded ? 1 : 0
+                self.raceDescriptionLabel.alpha = self.isExpanded ? 1 : 0
                 self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
-                if (self.isExpanded) {
-                    self.setupExpandedViews()
-                } else {
-                    self.expandedMapDescriptionView.removeFromSuperview()
-                    self.expandedMapImageView.removeFromSuperview()
-                    self.expandedRaceDescriptionView.removeFromSuperview()
-                }
+//                if (self.isExpanded) {
+//                    self.setupExpandedViews()
+//                } else {
+//                    self.expandedMapDescriptionView.removeFromSuperview()
+//                    self.expandedMapImageView.removeFromSuperview()
+//                    self.expandedRaceDescriptionView.removeFromSuperview()
+//                }
             }
         }
     }
@@ -268,7 +285,7 @@ private extension RaceExpandedView {
         }
         let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2  //paddings top/bottom
               print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
-        expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight
+        expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight + 3
         print(#function, expandedHeight )
     }
     
@@ -344,6 +361,7 @@ private extension RaceExpandedView {
             make.top.bottom.trailing.equalToSuperview()
             make.leading.equalTo(moreView.snp.centerX).offset(-10)
         }
+            self.setupExpandedViews()
     }
     
     func setupLayout() {
