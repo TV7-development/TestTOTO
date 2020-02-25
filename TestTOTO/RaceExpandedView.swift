@@ -25,7 +25,7 @@ class RaceExpandedView: UIView {
     private var isExpanded: Bool = false {
         didSet {
             //            mapDescriptionLabel.isHidden = isExpanded ? false : true
-//            expandedMapDescriptionView.isHidden = isExpanded ? false : true
+            //            expandedMapDescriptionView.isHidden = isExpanded ? false : true
         }
     }
     
@@ -123,7 +123,7 @@ class RaceExpandedView: UIView {
         //           label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = label.font.withSize(12)
-//        label.textColor = .white
+        //        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -144,7 +144,7 @@ class RaceExpandedView: UIView {
         //           label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = label.font.withSize(12)
-//        label.textColor = .white
+        //        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -162,7 +162,7 @@ class RaceExpandedView: UIView {
         mapImageView.image = object.mapImage
         raceDescriptionLabel.text = object.raceDescription
         
-      calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
+        calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
         
     }
     
@@ -180,8 +180,8 @@ class RaceExpandedView: UIView {
     
     private func makeMoreButton() -> UIButton{
         let button = UIButton()
-//        button.backgroundColor = .white
-//        button.titleLabel?.text = "MRR"
+        //        button.backgroundColor = .white
+        //        button.titleLabel?.text = "MRR"
         button.setImage(UIImage(named: "arrow"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
@@ -206,17 +206,58 @@ private extension RaceExpandedView {
                 self.expandedMapImageView.alpha = self.isExpanded ? 1 : 0
                 self.expandedRaceDescriptionView.alpha = self.isExpanded ? 1 : 0
                 self.mapDescriptionLabel.alpha = self.isExpanded ? 1 : 0
-                    self.mapImageView.alpha = self.isExpanded ? 1 : 0
+                self.mapImageView.alpha = self.isExpanded ? 1 : 0
                 self.raceDescriptionLabel.alpha = self.isExpanded ? 1 : 0
                 self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
-//                if (self.isExpanded) {
-//                    self.setupExpandedViews()
-//                } else {
-//                    self.expandedMapDescriptionView.removeFromSuperview()
-//                    self.expandedMapImageView.removeFromSuperview()
-//                    self.expandedRaceDescriptionView.removeFromSuperview()
-//                }
+                if (self.isExpanded) {
+                    self.setupConstraintsForExpanded()
+                } else {
+                    self.expandedRaceDescriptionView.snp.removeConstraints()
+                    self.expandedMapImageView.snp.removeConstraints()
+                    self.expandedMapDescriptionView.snp.removeConstraints()
+                    self.mapImageView.snp.removeConstraints()
+                    self.mapDescriptionLabel.snp.removeConstraints()
+                    self.raceDescriptionLabel.snp.removeConstraints()
+                    //                    self.expandedRaceDescriptionView.snp.removeConstraints()
+                }
             }
+        }
+    }
+    
+    func setupConstraintsForExpanded() {
+        self.mapDescriptionLabel.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(15)
+            make.trailing.bottom.equalToSuperview().offset(-15)
+        }
+        
+        self.mapImageView.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(10)
+            make.trailing.bottom.equalToSuperview().offset(-10)
+            
+        }
+        
+        self.raceDescriptionLabel.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(15)
+            make.trailing.bottom.equalToSuperview().offset(-15)
+            
+        }
+        
+        self.expandedMapDescriptionView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(51)
+            make.width.equalToSuperview()
+        }
+        //IMAGE
+        self.expandedMapImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.expandedMapDescriptionView.snp.bottom).offset(1)
+            //            make.height.equalTo(mapImageView.snp.height)
+            make.width.equalToSuperview()
+            
+        }
+        
+        self.expandedRaceDescriptionView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.expandedMapImageView.snp.bottom).offset(1)
+            //            make.height.equalTo(raceDescriptionLabel.snp.height)
+            make.width.bottom.equalToSuperview()
         }
     }
     
@@ -231,44 +272,44 @@ private extension RaceExpandedView {
         expandedMapImageView.addSubview(mapImageView)
         expandedRaceDescriptionView.addSubview(raceDescriptionLabel)
         
-        mapDescriptionLabel.snp.makeConstraints { (make) in
-            make.leading.top.equalToSuperview().offset(15)
-            make.trailing.bottom.equalToSuperview().offset(-15)
-        }
-
-        mapImageView.snp.makeConstraints { (make) in
-            make.leading.top.equalToSuperview().offset(10)
-            make.trailing.bottom.equalToSuperview().offset(-10)
-
-        }
+        //        mapDescriptionLabel.snp.makeConstraints { (make) in
+        //            make.leading.top.equalToSuperview().offset(15)
+        //            make.trailing.bottom.equalToSuperview().offset(-15)
+        //        }
+        //
+        //        mapImageView.snp.makeConstraints { (make) in
+        //            make.leading.top.equalToSuperview().offset(10)
+        //            make.trailing.bottom.equalToSuperview().offset(-10)
+        //
+        //        }
+        //
+        //        raceDescriptionLabel.snp.makeConstraints { (make) in
+        //            make.leading.top.equalToSuperview().offset(15)
+        //            make.trailing.bottom.equalToSuperview().offset(-15)
+        //
+        //        }
+        //
+        //        expandedMapDescriptionView.snp.makeConstraints { (make) in
+        //            make.top.equalToSuperview().offset(51)
+        //            make.width.equalToSuperview()
+        //        }
+        //        //IMAGE
+        //        expandedMapImageView.snp.makeConstraints { (make) in
+        //            make.top.equalTo(expandedMapDescriptionView.snp.bottom).offset(1)
+        ////            make.height.equalTo(mapImageView.snp.height)
+        //            make.width.equalToSuperview()
+        //
+        //        }
+        //
+        //        expandedRaceDescriptionView.snp.makeConstraints { (make) in
+        //            make.top.equalTo(expandedMapImageView.snp.bottom).offset(1)
+        ////            make.height.equalTo(raceDescriptionLabel.snp.height)
+        //            make.width.bottom.equalToSuperview()
+        //        }
+        //
         
-        raceDescriptionLabel.snp.makeConstraints { (make) in
-            make.leading.top.equalToSuperview().offset(15)
-            make.trailing.bottom.equalToSuperview().offset(-15)
-            
-        }
-        
-        expandedMapDescriptionView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(51)
-            make.width.equalToSuperview()
-        }
-        //IMAGE
-        expandedMapImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(expandedMapDescriptionView.snp.bottom).offset(1)
-//            make.height.equalTo(mapImageView.snp.height)
-            make.width.equalToSuperview()
-            
-        }
-        
-        expandedRaceDescriptionView.snp.makeConstraints { (make) in
-            make.top.equalTo(expandedMapImageView.snp.bottom).offset(1)
-//            make.height.equalTo(raceDescriptionLabel.snp.height)
-            make.width.bottom.equalToSuperview()
-        }
-        
-
     }
-     
+    
     func getLabelHeight(text: String, font: UIFont, paddings: CGFloat) -> CGFloat {
         
         let screenWidth = UIScreen.main.bounds.width
@@ -284,7 +325,7 @@ private extension RaceExpandedView {
             mapImageHeight = image.size.height + (10 * 2) //paddings top/bottom
         }
         let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2  //paddings top/bottom
-              print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
+        print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
         expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight + 3
         print(#function, expandedHeight )
     }
@@ -361,7 +402,7 @@ private extension RaceExpandedView {
             make.top.bottom.trailing.equalToSuperview()
             make.leading.equalTo(moreView.snp.centerX).offset(-10)
         }
-            self.setupExpandedViews()
+        self.setupExpandedViews()
     }
     
     func setupLayout() {
@@ -395,7 +436,7 @@ extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-
+        
         return ceil(boundingBox.height)
     }
 }
