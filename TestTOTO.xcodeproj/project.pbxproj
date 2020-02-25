@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1AF8CA89F18E047C1A57A689 /* libPods-TestTOTO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F6C5CC221A64FA30E2A887 /* libPods-TestTOTO.a */; };
 		AE1F2DF424041EB800B6FC84 /* RaceVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */; };
+		AE1F2DF624051F4900B6FC84 /* RaceXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE1F2DF524051F4900B6FC84 /* RaceXIB.xib */; };
+		AE1F2DFA240527D100B6FC84 /* RaceExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1F2DF9240527D100B6FC84 /* RaceExpandedView.swift */; };
 		AEB1BC4D24040C1700BBC3E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */; };
 		AEB1BC4F24040C1700BBC3E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */; };
 		AEB1BC5124040C1700BBC3E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1BC5024040C1700BBC3E8 /* ViewController.swift */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		91CFDB489648E447F1B03656 /* Pods-TestTOTO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTOTO.debug.xcconfig"; path = "Target Support Files/Pods-TestTOTO/Pods-TestTOTO.debug.xcconfig"; sourceTree = "<group>"; };
 		AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceVeiw.swift; sourceTree = "<group>"; };
+		AE1F2DF524051F4900B6FC84 /* RaceXIB.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RaceXIB.xib; sourceTree = "<group>"; };
+		AE1F2DF9240527D100B6FC84 /* RaceExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceExpandedView.swift; sourceTree = "<group>"; };
 		AEB1BC4924040C1700BBC3E8 /* TestTOTO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTOTO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,10 +91,12 @@
 				AEB1BC4C24040C1700BBC3E8 /* AppDelegate.swift */,
 				AEB1BC4E24040C1700BBC3E8 /* SceneDelegate.swift */,
 				AEB1BC5024040C1700BBC3E8 /* ViewController.swift */,
-				AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */,
+				AE1F2DF9240527D100B6FC84 /* RaceExpandedView.swift */,
 				AEB1BC6224040D5900BBC3E8 /* Views */,
 				AEB1BC5224040C1700BBC3E8 /* Main.storyboard */,
+				AE1F2DF524051F4900B6FC84 /* RaceXIB.xib */,
 				AEB1BC6324041C9400BBC3E8 /* TestView.swift */,
+				AE1F2DF324041EB800B6FC84 /* RaceVeiw.swift */,
 				AEB1BC5524040C1A00BBC3E8 /* Assets.xcassets */,
 				AEB1BC5724040C1A00BBC3E8 /* LaunchScreen.storyboard */,
 				AEB1BC5A24040C1A00BBC3E8 /* Info.plist */,
@@ -166,6 +172,7 @@
 			files = (
 				AEB1BC5924040C1A00BBC3E8 /* LaunchScreen.storyboard in Resources */,
 				AEB1BC5624040C1A00BBC3E8 /* Assets.xcassets in Resources */,
+				AE1F2DF624051F4900B6FC84 /* RaceXIB.xib in Resources */,
 				AEB1BC5424040C1700BBC3E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +213,7 @@
 				AEB1BC5124040C1700BBC3E8 /* ViewController.swift in Sources */,
 				AE1F2DF424041EB800B6FC84 /* RaceVeiw.swift in Sources */,
 				AEB1BC4D24040C1700BBC3E8 /* AppDelegate.swift in Sources */,
+				AE1F2DFA240527D100B6FC84 /* RaceExpandedView.swift in Sources */,
 				AEB1BC4F24040C1700BBC3E8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

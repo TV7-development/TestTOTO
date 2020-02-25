@@ -26,6 +26,7 @@ class RaceVeiw: UIView {
     var mapImage: UIImage?
     
     var raceDescription: String = "Bla bla bla race description"
+    
     lazy var timeTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +76,6 @@ class RaceVeiw: UIView {
     lazy var runnersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
         label.font = label.font.withSize(12)
         label.text = self.runners
         label.numberOfLines = 1
@@ -99,30 +99,30 @@ class RaceVeiw: UIView {
     }()
     lazy var quaterView: UIView = {
         let v = UIView()
-        v.backgroundColor = .gray
-        v.alpha = 0.5
+//        v.backgroundColor = .gray
+//        v.alpha = 0.5
         
         return v
     }()
     lazy var secondQuaterView: UIView = {
         let v = UIView()
-        v.backgroundColor = .yellow
-        v.alpha = 0.5
+//        v.backgroundColor = .yellow
+//        v.alpha = 0.5
         
         return v
     }()
     
     lazy var thirdQuaterView: UIView = {
         let v = UIView()
-        v.backgroundColor = .white
-        v.alpha = 0.5
+//        v.backgroundColor = .white
+//        v.alpha = 0.5
         
         return v
     }()
     lazy var lastQuaterView: UIView = {
         let v = UIView()
-        v.backgroundColor = .red
-        v.alpha = 0.5
+//        v.backgroundColor = .red
+//        v.alpha = 0.5
         
         return v
     }()
@@ -143,11 +143,11 @@ class RaceVeiw: UIView {
     
     func makeMoreButton() -> UIButton{
         let button = UIButton()
-        button.backgroundColor = .gray
+//        button.backgroundColor = .gray
         button.titleLabel?.text = "MRR"
-        //        button.setImage(UIImage(, for: .normal)
+        button.setImage(UIImage(named: "arrow"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        
         return button
     }
     @objc func moreButtonTapped() {
@@ -160,6 +160,7 @@ class RaceVeiw: UIView {
     
     func setupLayout() {
         moreButton = makeMoreButton()
+        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         
         self.addSubview(topView)
         topView.snp.makeConstraints { (make) in

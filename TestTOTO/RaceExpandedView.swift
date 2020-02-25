@@ -1,0 +1,378 @@
+//
+//  RaceExpandedView.swift
+//  TestTOTO
+//
+//  Created by usr01 on 25.02.2020.
+//  Copyright © 2020 bhdn. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+
+protocol RaceMapProtocol {
+    
+    var time: String { get }
+    var places: String { get }
+    var runners: String { get }
+    var mapDescriptuon: String { get }
+    var mapImage: UIImage? { get }
+    var raceDescription: String { get }
+}
+
+class RaceExpandedView: UIView {
+    
+    private var isExpanded: Bool = false {
+        didSet {
+            //            mapDescriptionLabel.isHidden = isExpanded ? false : true
+            expandedMapDescriptionView.isHidden = isExpanded ? false : true
+        }
+    }
+    
+    private lazy var timeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+        return view
+    }()
+    private lazy var placeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .yellow
+        return view
+    }()
+    private lazy var runnerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        return view
+    }()
+    private lazy var moreView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .blue
+        
+        return view
+    }()
+    private lazy var expandedMapDescriptionView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        
+        return view
+    }()
+    private lazy var expandedMapImageView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .darkGray
+        
+        return view
+    }()
+    private lazy var expandedRaceDescriptionView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .darkText
+        
+        return view
+    }()
+    
+    
+    private lazy var timeTextLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = label.font.withSize(12)
+        label.numberOfLines = 1
+        return label
+    }()
+    private lazy var placesTextLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = label.font.withSize(12)
+        //        label.text = "Place:"
+        label.numberOfLines = 1
+        return label
+    }()
+    private lazy var runnersTextLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = label.font.withSize(12)
+        //        label.text = "Runners:"
+        label.numberOfLines = 1
+        return label
+    }()
+    lazy var moreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        //           label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .right
+        label.font = label.font.withSize(12)
+        label.text = "More:"
+        label.numberOfLines = 1
+        return label
+    }()
+    lazy var mapDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        //           label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.font = label.font.withSize(12)
+        label.textColor = .white
+        label.numberOfLines = 0
+        return label
+    }()
+    lazy var mapImageView: UIImageView = {
+        
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFit
+        
+        return iv
+        
+    }()
+    lazy var raceDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        //           label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.font = label.font.withSize(12)
+        label.textColor = .white
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    
+    
+    private var moreButton: UIButton = UIButton()
+    
+    func configure(object: RaceMapProtocol) {
+        
+        timeTextLabel.text = "Time:\(object.time)"
+        placesTextLabel.text = "Place:\(object.places)"
+        runnersTextLabel.text = "Runners:\(object.runners)"
+        mapDescriptionLabel.text = object.mapDescriptuon
+        mapImageView.image = object.mapImage
+        raceDescriptionLabel.text = object.raceDescription
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .gray
+        setup()
+    }
+    
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func makeMoreButton() -> UIButton{
+        let button = UIButton()
+//        button.backgroundColor = .white
+//        button.titleLabel?.text = "MRR"
+        button.setImage(UIImage(named: "arrow"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        return button
+    }
+    
+}
+
+private extension RaceExpandedView {
+    @objc func moreButtonTapped() {
+        print(#function)
+        isExpanded = !isExpanded
+        
+        UIView.animate(withDuration: 0.4) {
+            self.frame.size.height = self.isExpanded ? 200:50
+            if (self.isExpanded) {
+                self.setupExpandedViews()
+            } else {
+                self.expandedMapDescriptionView.removeFromSuperview()
+                 self.expandedMapImageView.removeFromSuperview()
+                 self.expandedRaceDescriptionView.removeFromSuperview()
+            }
+        }
+    }
+    
+    func setupExpandedViews() {
+        
+        //MARK: Description Expanded view
+        addSubview(expandedMapDescriptionView)
+        addSubview(expandedMapImageView)
+        addSubview(expandedRaceDescriptionView)
+        
+        expandedMapDescriptionView.addSubview(mapDescriptionLabel)
+        expandedMapImageView.addSubview(mapImageView)
+        expandedRaceDescriptionView.addSubview(raceDescriptionLabel)
+        
+        mapDescriptionLabel.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(15)
+            make.trailing.bottom.equalToSuperview().offset(-15)
+        }
+
+        mapImageView.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(10)
+            make.trailing.bottom.equalToSuperview().offset(-10)
+
+        }
+        
+        raceDescriptionLabel.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview().offset(15)
+            make.trailing.bottom.equalToSuperview().offset(-15)
+            
+        }
+        
+        expandedMapDescriptionView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(51)
+            make.width.equalToSuperview()
+        }
+        //IMAGE
+        expandedMapImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(expandedMapDescriptionView.snp.bottom).offset(1)
+//            make.height.equalTo(mapImageView.snp.height)
+            make.width.equalToSuperview()
+            
+        }
+        
+        expandedRaceDescriptionView.snp.makeConstraints { (make) in
+            make.top.equalTo(expandedMapImageView.snp.bottom).offset(1)
+//            make.height.equalTo(raceDescriptionLabel.snp.height)
+            make.width.bottom.equalToSuperview()
+        }
+        
+        
+        
+        
+        ///
+        
+    }
+    
+    func setup() {
+        //        isExpanded = false
+        moreButton = makeMoreButton()
+        
+        addSubview(timeView)
+        addSubview(placeView)
+        addSubview(runnerView)
+        addSubview(moreView)
+        
+        
+        timeView.snp.makeConstraints { (make) in
+            make.leading.top.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(placeView)
+        }
+        placeView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalTo(50)
+            make.leading.equalTo(timeView.snp.trailing).offset(1)
+            
+        }
+        runnerView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(placeView)
+            make.leading.equalTo(placeView.snp.trailing).offset(1)
+            
+        }
+        
+        moreView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(placeView)
+            
+            
+            make.leading.equalTo(runnerView.snp.trailing).offset(1)
+            make.trailing.equalToSuperview()
+        }
+        
+        
+        timeView.addSubview(timeTextLabel)
+        placeView.addSubview(placesTextLabel)
+        runnerView.addSubview(runnersTextLabel)
+        moreView.addSubview(moreButton)
+        moreView.addSubview(moreLabel)
+        
+        timeTextLabel.snp.makeConstraints { (make) in
+            make.width.lessThanOrEqualToSuperview()
+            make.centerY.equalTo(timeView.snp.centerY)
+            make.centerX.equalTo(timeView.snp.centerX)
+            
+        }
+        placesTextLabel.snp.makeConstraints { (make) in
+            make.width.lessThanOrEqualToSuperview()
+            make.centerY.equalTo(placeView.snp.centerY)
+            make.centerX.equalTo(placeView.snp.centerX)
+            
+        }
+        runnersTextLabel.snp.makeConstraints { (make) in
+            make.width.lessThanOrEqualToSuperview()
+            make.centerX.equalTo(runnerView.snp.centerX)
+            make.centerY.equalTo(runnerView.snp.centerY)
+        }
+        moreLabel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(moreView.snp.centerX).offset(10)
+            make.leading.equalToSuperview()
+            make.centerY.equalTo(moreView.snp.centerY)
+        }
+        moreButton.snp.makeConstraints { (make) in
+            make.top.bottom.trailing.equalToSuperview()
+            make.leading.equalTo(moreView.snp.centerX).offset(-10)
+        }
+    }
+    
+    func setupLayout() {
+        moreButton = makeMoreButton()
+        
+        
+        
+    }
+}
+
+
+struct SomeStruct: RaceMapProtocol {
+    var time: String
+    
+    var places: String
+    
+    var runners: String
+    
+    var mapDescriptuon: String
+    
+    var mapImage: UIImage?
+    
+    var raceDescription: String
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: Middle section (MapDescription)
+
+//           addSubview(mapDescriptionLabel)
+//        //        addSubview(mapImage)
+//        //        addSubview(raceDescription)
+//        mapDescriptionLabel.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(15)
+//            make.trailing.equalToSuperview().offset(-15)
+//            make.top.equalTo( placeView.snp.bottom).offset(-15)
+//            make.bottom.equalToSuperview().offset(-15)
+//
+//        }
