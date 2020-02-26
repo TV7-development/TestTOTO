@@ -116,7 +116,7 @@ class RaceExpandedView: UIView {
     lazy internal var mapImageView: UIImageView = {
         
         let iv = UIImageView()
-//        iv.backgroundColor = .gray
+        //        iv.backgroundColor = .gray
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         
@@ -187,41 +187,33 @@ private extension RaceExpandedView {
         if let exHeight = expandedHeight {
             
             UIView.animate(withDuration: 0.4) {
-                
                 self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
-                if (self.isExpanded) {
-                    self.updateConstraintsForExpanded()
-              
-                } else {
-                    self.updateConstraintsForHidden()
-                    
-                }
-                
                 self.layoutIfNeeded()
             }
         }
     }
     
     private func setupConstraintsForHidden() {
+        
         self.mapDescriptionLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(15).priority(980)
+            make.bottom.equalToSuperview().offset(-15).priority(980)
         }
-
+        
         self.mapImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(10).priority(980)
+            make.bottom.equalToSuperview().offset(-10).priority(980)
         }
         
         self.raceDescriptionLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(15).priority(980)
+            make.bottom.equalToSuperview().offset(-15).priority(980)
         }
         
         
@@ -238,45 +230,8 @@ private extension RaceExpandedView {
         self.expandedRaceDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.expandedMapImageView.snp.bottom)
             make.bottom.width.equalToSuperview()
-
+            
         }
-    }
-    
-    
-    private func updateConstraintsForExpanded() {
-        
-
-        
-        self.mapDescriptionLabel.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().offset(-15)
-        }
-
-        self.mapImageView.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-        }
-
-        self.raceDescriptionLabel.snp.updateConstraints { (make) in
-            make.top.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().offset(-15)
-        }
-    }
-    
-    private func updateConstraintsForHidden() {
-        
-        self.mapDescriptionLabel.snp.updateConstraints { (make) in
-            make.top.bottom.equalToSuperview()
-        }
-        
-        self.mapImageView.snp.updateConstraints { (make) in
-            make.top.bottom.equalToSuperview()
-        }
-
-        self.raceDescriptionLabel.snp.updateConstraints { (make) in
-            make.top.bottom.equalToSuperview()
-        }
-
     }
     
     private func setupExpandedViews() {
