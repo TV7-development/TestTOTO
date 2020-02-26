@@ -132,9 +132,30 @@ class RaceExpandedView: UIView {
         return label
     }()
     
-    private lazy var separator: UIView = {
+    private lazy var separatorMapDesc: UIView = {
         let view = UIView()
-        view.frame.size.height = 1
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+        
+    }()
+    private lazy var separatorMap: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+        
+    }()
+    private lazy var separatorRaceDesc: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+        
+    }()
+    
+    private lazy var lastSeparatorRaceDesc: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
         return view
@@ -195,6 +216,7 @@ private extension RaceExpandedView {
     
     private func setupConstraintsForHidden() {
         
+        
         self.mapDescriptionLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
@@ -216,10 +238,10 @@ private extension RaceExpandedView {
             make.bottom.equalToSuperview().offset(-15).priority(980)
         }
         
-        
         self.expandedMapDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(placeView.snp.bottom)
             make.width.equalToSuperview()
+            //            make.leading.top.trailing.equalTo(separator.s)
         }
         
         self.expandedMapImageView.snp.makeConstraints { (make) in
@@ -230,8 +252,36 @@ private extension RaceExpandedView {
         self.expandedRaceDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.expandedMapImageView.snp.bottom)
             make.bottom.width.equalToSuperview()
+        }
+        
+        setupSeparators()
+    }
+    
+    private func setupSeparators() {
+        expandedMapDescriptionView.addSubview(separatorMapDesc)
+        separatorMapDesc.snp.makeConstraints { (make) in
+            make.height.equalTo(0.5)
+            make.width.top.equalToSuperview()
             
         }
+        expandedMapImageView.addSubview(separatorMap)
+        separatorMap.snp.makeConstraints { (make) in
+            make.height.equalTo(0.5)
+            make.width.top.equalToSuperview()
+            
+        }
+        expandedRaceDescriptionView.addSubview(separatorRaceDesc)
+        separatorRaceDesc.snp.makeConstraints { (make) in
+            make.height.equalTo(0.5)
+            make.width.top.equalToSuperview()
+        }
+        
+        expandedRaceDescriptionView.addSubview(lastSeparatorRaceDesc)
+        lastSeparatorRaceDesc.snp.makeConstraints { (make) in
+            make.height.equalTo(0.5)
+            make.width.bottom.equalToSuperview()
+        }
+        
     }
     
     private func setupExpandedViews() {
