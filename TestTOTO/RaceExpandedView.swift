@@ -21,11 +21,6 @@ protocol RaceMapProtocol {
 
 class RaceExpandedView: UIView {
     
-    
-    private var heightMapDescriptionConstraint: Constraint?
-    private var heightMapConstraint: Constraint?
-    private var heightRaceDescriptionConstraint: Constraint?
-    
     private(set) var expandedHeight: CGFloat?
     private var isExpanded: Bool = false
     
@@ -233,28 +228,24 @@ private extension RaceExpandedView {
         self.expandedMapDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(placeView.snp.bottom)
             make.width.equalToSuperview()
-            heightMapDescriptionConstraint = make.height.equalTo(0).constraint
         }
         
         self.expandedMapImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self.expandedMapDescriptionView.snp.bottom)
             make.width.equalToSuperview()
-            heightMapConstraint = make.height.equalTo(0).constraint
         }
         
         self.expandedRaceDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(self.expandedMapImageView.snp.bottom)
             make.bottom.width.equalToSuperview()
-            heightRaceDescriptionConstraint = make.height.equalTo(0).constraint
+
         }
     }
     
     
     private func updateConstraintsForExpanded() {
         
-        heightMapDescriptionConstraint?.deactivate()
-        heightMapConstraint?.deactivate()
-        heightRaceDescriptionConstraint?.deactivate()
+
         
         self.mapDescriptionLabel.snp.updateConstraints { (make) in
             make.top.equalToSuperview().offset(15)
@@ -285,10 +276,6 @@ private extension RaceExpandedView {
         self.raceDescriptionLabel.snp.updateConstraints { (make) in
             make.top.bottom.equalToSuperview()
         }
-        
-        heightMapDescriptionConstraint?.activate()
-        heightMapConstraint?.activate()
-        heightRaceDescriptionConstraint?.activate()
 
     }
     
