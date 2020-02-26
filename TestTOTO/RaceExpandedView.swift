@@ -189,9 +189,13 @@ private extension RaceExpandedView {
                 self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
                 if (self.isExpanded) {
                     self.updateConstraintsForExpanded()
+              
                 } else {
                     self.updateConstraintsForHidden()
+                    
                 }
+                
+                self.layoutIfNeeded()
             }
         }
     }
@@ -258,6 +262,7 @@ private extension RaceExpandedView {
         heightMapDescriptionConstraint?.activate()
         heightMapConstraint?.activate()
         heightRaceDescriptionConstraint?.activate()
+
     }
     
     
