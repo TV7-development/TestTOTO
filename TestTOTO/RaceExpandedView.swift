@@ -194,8 +194,7 @@ class RaceExpandedView: UIView {
     }
     
     @objc func moreButtonTapped() {
-        
-        print(#function)
+//        print(#function)
         isExpanded = !isExpanded
         if let exHeight = expandedHeight {
             
@@ -239,13 +238,19 @@ private extension RaceExpandedView {
             make.top.equalToSuperview().offset(15).priority(980)
             make.bottom.equalToSuperview().offset(-15).priority(980)
         }
-        
+       
         self.mapImageView.snp.makeConstraints { (make) in
-            make.height.equalTo(160).priority(970)
-            make.width.equalTo(165).priority(970)
-            make.centerX.centerY.equalToSuperview()
+            
+            if mapImageView.image != nil {
+                make.height.equalTo(160).priority(970)
+                make.width.equalTo(165).priority(970)
+                make.centerX.centerY.equalToSuperview()
             make.top.equalToSuperview().offset(10).priority(980)
             make.bottom.equalToSuperview().offset(-10).priority(980)
+            } else {
+                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
         }
         
         self.raceDescriptionTopImage.snp.makeConstraints { (make) in
@@ -356,7 +361,7 @@ private extension RaceExpandedView {
         if moreButton.imageView != nil {
             let buttonWidth = moreButton.frame.width
             let imageWidth = moreButton.imageView!.frame.width
-            print(buttonWidth, imageWidth, moreView.frame.width, (buttonWidth-imageWidth))
+//            print(buttonWidth, imageWidth, moreView.frame.width, (buttonWidth-imageWidth))
             moreButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: buttonWidth + spacing - imageWidth - 26, bottom: 0, right: -spacing)
             moreButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth/4, bottom: 0, right: imageWidth)
             moreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: imageWidth)
@@ -374,13 +379,12 @@ private extension RaceExpandedView {
     private func calculateExpandedHeight(mapDescription: String, raceDescription: String, mapImage: UIImage?, sidePaddings: CGFloat?) {
         let mapDescriptionHeight = getLabelHeight(text: mapDescription, font: .systemFont(ofSize: 14), paddings: 15) + 15*2 //paddings top/bottom
         var mapImageHeight: CGFloat = 0
-        if let image = mapImage {
+        if mapImage != nil {
             mapImageHeight = 160 + (10 * 2) //paddings top/bottom
         }
         let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 14), paddings: 15) + 15*2 + 12 + 15 //paddings top/bottom + imageHeight + padding image/label
-        print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
+//        print(#function,mapDescriptionHeight, mapImageHeight, raceDescriptionHeight, expandedHeight)
         expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight
-        print(#function, expandedHeight )
     }
 }
 
