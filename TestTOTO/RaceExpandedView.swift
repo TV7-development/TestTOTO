@@ -58,36 +58,8 @@ class RaceExpandedView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
-        
         return view
     }()
-    private lazy var expandedMapDescriptionView: UIView = {
-        let view = UIView()
-        view.alpha = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        
-        return view
-    }()
-    private lazy var expandedMapImageView: UIView = {
-        let view = UIView()
-        view.alpha = 0
-//        view.backgroundColor = .gray
-        view.translatesAutoresizingMaskIntoConstraints = false
-        //        view.backgroundColor = .white
-        
-        return view
-    }()
-    private lazy var expandedRaceDescriptionView: UIView = {
-        let view = UIView()
-        view.alpha = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        
-        return view
-    }()
-    
-    
     private lazy var timeTextLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -121,6 +93,27 @@ class RaceExpandedView: UIView {
         label.numberOfLines = 1
         return label
     }()
+    //MARK: Expanded section views
+    private lazy var expandedMapDescriptionView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    private lazy var expandedMapImageView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private lazy var expandedRaceDescriptionView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
     private lazy var mapDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -130,14 +123,10 @@ class RaceExpandedView: UIView {
         return label
     }()
     private lazy var mapImageView: UIImageView = {
-        
         let iv = UIImageView()
-        //        iv.backgroundColor = .gray
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
-        
         return iv
-        
     }()
     private lazy var raceDescriptionLabel: UILabel = {
         let label = UILabel()
@@ -149,7 +138,6 @@ class RaceExpandedView: UIView {
     }()
     private lazy var raceDescriptionTopImage: UIImageView = {
         let iv = UIImageView()
-//        iv.backgroundColor = .gray
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         iv.image = UIImage(named: "racingpost")
@@ -159,22 +147,11 @@ class RaceExpandedView: UIView {
     
     private var moreButton: UIButton = UIButton()
     
-    func configure(object: RaceMapProtocol) {
-        
-        timeTextLabel.text = "Time:\(object.time)"
-        placesTextLabel.text = "Place:\(object.places)"
-        runnersTextLabel.text = "Runners:\(object.runners)"
-        mapDescriptionLabel.text = object.mapDescriptuon
-        mapImageView.image = object.mapImage
-        raceDescriptionLabel.text = object.raceDescription
-//        raceDescriptionTopImage.image = UIImage(named: "racingpost")
-        calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
-        
-    }
-    
+ 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        setupButtonInsets()
         setupExpandedViews()
         setupSeparators()
     }
@@ -182,6 +159,19 @@ class RaceExpandedView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(object: RaceMapProtocol) {
+         
+         timeTextLabel.text = "Time:\(object.time)"
+         placesTextLabel.text = "Place:\(object.places)"
+         runnersTextLabel.text = "Runners:\(object.runners)"
+         mapDescriptionLabel.text = object.mapDescriptuon
+         mapImageView.image = object.mapImage
+         raceDescriptionLabel.text = object.raceDescription
+         calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
+         
+     }
+     
     
     private func separatorView() -> UIView {
         let view = UIView()
@@ -192,8 +182,13 @@ class RaceExpandedView: UIView {
     
     private func makeMoreButton() -> UIButton{
         let button = UIButton()
-        button.setImage(UIImage(named: "arrow"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font =  button.titleLabel?.font.withSize(14)
+        button.contentHorizontalAlignment = .center
+        
+        button.setTitle("More ", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(named: "arrow"), for: .normal)
         button.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
         return button
     }
@@ -205,6 +200,9 @@ class RaceExpandedView: UIView {
         if let exHeight = expandedHeight {
             
             UIView.animate(withDuration: 0.4) {
+                
+                self.moreButton.imageView!.transform = CGAffineTransform(rotationAngle: self.isExpanded ? CGFloat.pi : 0)
+            
                 self.expandedMapDescriptionView.alpha = self.isExpanded ? 1 : 0
                 self.expandedMapImageView.alpha = self.isExpanded ? 1 : 0
                 self.expandedRaceDescriptionView.alpha = self.isExpanded ? 1 : 0
@@ -214,7 +212,6 @@ class RaceExpandedView: UIView {
             }
         }
     }
-    
 }
 
 private extension RaceExpandedView {
@@ -253,9 +250,7 @@ private extension RaceExpandedView {
         
         self.raceDescriptionTopImage.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
-//            make.trailing.equalToSuperview().offset(-15)
             make.top.equalToSuperview().offset(15).priority(980)
-//            make.bottom.equalToSuperview().offset(-15).priority(900)
         }
         
         self.raceDescriptionLabel.snp.makeConstraints { (make) in
@@ -268,7 +263,6 @@ private extension RaceExpandedView {
         self.expandedMapDescriptionView.snp.makeConstraints { (make) in
             make.top.equalTo(topStack.snp.bottom)
             make.width.equalToSuperview()
-            //            make.leading.top.trailing.equalTo(separator.s)
         }
         
         self.expandedMapImageView.snp.makeConstraints { (make) in
@@ -317,7 +311,7 @@ private extension RaceExpandedView {
     }
     
     private func setup() {
-        //        isExpanded = false
+        
         moreButton = makeMoreButton()
         
         addSubview(topStack)
@@ -330,7 +324,7 @@ private extension RaceExpandedView {
         placeView.addSubview(placesTextLabel)
         runnerView.addSubview(runnersTextLabel)
         moreView.addSubview(moreButton)
-        moreView.addSubview(moreLabel)
+       
         
         timeTextLabel.snp.makeConstraints { (make) in
             make.width.lessThanOrEqualToSuperview()
@@ -349,18 +343,25 @@ private extension RaceExpandedView {
             make.centerX.equalTo(runnerView.snp.centerX)
             make.centerY.equalTo(runnerView.snp.centerY)
         }
-        moreLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(moreView.snp.centerX).offset(10)
-            make.leading.equalToSuperview()
-            make.centerY.equalTo(moreView.snp.centerY)
-        }
+
         moreButton.snp.makeConstraints { (make) in
-            make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalTo(moreView.snp.centerX).offset(-10)
+            make.leading.top.bottom.trailing.equalToSuperview()
         }
+      
         
     }
     
+    private func setupButtonInsets() {
+        let spacing: CGFloat = 8.0 / 2
+        if moreButton.imageView != nil {
+            let buttonWidth = moreButton.frame.width
+            let imageWidth = moreButton.imageView!.frame.width
+            print(buttonWidth, imageWidth, moreView.frame.width, (buttonWidth-imageWidth))
+            moreButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: buttonWidth + spacing - imageWidth - 26, bottom: 0, right: -spacing)
+            moreButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth/4, bottom: 0, right: imageWidth)
+            moreButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: imageWidth)
+        }
+    }
     
     private func getLabelHeight(text: String, font: UIFont, paddings: CGFloat) -> CGFloat {
         
@@ -410,27 +411,3 @@ extension String {
         return ceil(boundingBox.height)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//MARK: Middle section (MapDescription)
-
-//           addSubview(mapDescriptionLabel)
-//        //        addSubview(mapImage)
-//        //        addSubview(raceDescription)
-//        mapDescriptionLabel.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(15)
-//            make.trailing.equalToSuperview().offset(-15)
-//            make.top.equalTo( placeView.snp.bottom).offset(-15)
-//            make.bottom.equalToSuperview().offset(-15)
-//
-//        }
