@@ -248,6 +248,7 @@ private extension RaceExpandedView {
             make.top.equalToSuperview().offset(10).priority(980)
             make.bottom.equalToSuperview().offset(-10).priority(980)
             } else {
+                make.centerX.centerY.equalToSuperview()
                 make.top.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
