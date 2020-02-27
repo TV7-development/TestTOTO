@@ -144,35 +144,12 @@ class RaceExpandedView: UIView {
         return label
     }()
     
-    private lazy var separatorMapDesc: UIView = {
+    func separatorView() -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
         return view
-        
-    }()
-    private lazy var separatorMap: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
-        return view
-        
-    }()
-    private lazy var separatorRaceDesc: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
-        return view
-        
-    }()
-    
-    private lazy var lastSeparatorRaceDesc: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
-        return view
-        
-    }()
+    }
     
     private var moreButton: UIButton = UIButton()
     
@@ -270,6 +247,12 @@ private extension RaceExpandedView {
     }
     
     private func setupSeparators() {
+        
+        let separatorMapDesc = separatorView()
+        let separatorMap = separatorView()
+        let separatorRaceDesc = separatorView()
+        let lastSeparatorRaceDesc = separatorView()
+        
         expandedMapDescriptionView.addSubview(separatorMapDesc)
         separatorMapDesc.snp.makeConstraints { (make) in
             make.height.equalTo(0.5)
