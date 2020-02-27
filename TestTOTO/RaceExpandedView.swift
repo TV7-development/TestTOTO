@@ -63,6 +63,7 @@ class RaceExpandedView: UIView {
     }()
     private lazy var expandedMapDescriptionView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         
@@ -70,13 +71,16 @@ class RaceExpandedView: UIView {
     }()
     private lazy var expandedMapImageView: UIView = {
         let view = UIView()
+        view.alpha = 0
+//        view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        //        view.backgroundColor = .white
         
         return view
     }()
     private lazy var expandedRaceDescriptionView: UIView = {
         let view = UIView()
+        view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         
@@ -88,7 +92,7 @@ class RaceExpandedView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         label.numberOfLines = 1
         return label
     }()
@@ -96,7 +100,7 @@ class RaceExpandedView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         label.numberOfLines = 1
         return label
     }()
@@ -104,7 +108,7 @@ class RaceExpandedView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         label.numberOfLines = 1
         return label
     }()
@@ -112,20 +116,20 @@ class RaceExpandedView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         label.text = "More:"
         label.numberOfLines = 1
         return label
     }()
-    lazy internal var mapDescriptionLabel: UILabel = {
+    private lazy var mapDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = label.font.withSize(12)
+        label.textAlignment = .justified
+        label.font = label.font.withSize(14)
         label.numberOfLines = 0
         return label
     }()
-    lazy internal var mapImageView: UIImageView = {
+    private lazy var mapImageView: UIImageView = {
         
         let iv = UIImageView()
         //        iv.backgroundColor = .gray
@@ -135,21 +139,23 @@ class RaceExpandedView: UIView {
         return iv
         
     }()
-    lazy internal var raceDescriptionLabel: UILabel = {
+    private lazy var raceDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.font = label.font.withSize(12)
+        label.textAlignment = .justified
+        label.font = label.font.withSize(14)
         label.numberOfLines = 0
         return label
     }()
-    
-    func separatorView() -> UIView {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
-        return view
-    }
+    private lazy var raceDescriptionTopImage: UIImageView = {
+        let iv = UIImageView()
+//        iv.backgroundColor = .gray
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFit
+        iv.image = UIImage(named: "racingpost")
+        iv.frame.size = CGSize(width: 168, height: 12)
+        return iv
+    }()
     
     private var moreButton: UIButton = UIButton()
     
@@ -161,7 +167,7 @@ class RaceExpandedView: UIView {
         mapDescriptionLabel.text = object.mapDescriptuon
         mapImageView.image = object.mapImage
         raceDescriptionLabel.text = object.raceDescription
-        
+//        raceDescriptionTopImage.image = UIImage(named: "racingpost")
         calculateExpandedHeight(mapDescription: object.mapDescriptuon, raceDescription: object.raceDescription, mapImage: object.mapImage, sidePaddings: 15)
         
     }
@@ -173,10 +179,15 @@ class RaceExpandedView: UIView {
         setupSeparators()
     }
     
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func separatorView() -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
     }
     
     private func makeMoreButton() -> UIButton{
@@ -187,9 +198,6 @@ class RaceExpandedView: UIView {
         return button
     }
     
-}
-
-private extension RaceExpandedView {
     @objc func moreButtonTapped() {
         
         print(#function)
@@ -197,10 +205,32 @@ private extension RaceExpandedView {
         if let exHeight = expandedHeight {
             
             UIView.animate(withDuration: 0.4) {
+                self.expandedMapDescriptionView.alpha = self.isExpanded ? 1 : 0
+                self.expandedMapImageView.alpha = self.isExpanded ? 1 : 0
+                self.expandedRaceDescriptionView.alpha = self.isExpanded ? 1 : 0
+                
                 self.frame.size.height = self.isExpanded ? (exHeight + 50 ): 50
                 self.layoutIfNeeded()
             }
         }
+    }
+    
+}
+
+private extension RaceExpandedView {
+    
+    private func setupExpandedViews() {
+        //MARK: Description Expanded view
+        addSubview(expandedMapDescriptionView)
+        addSubview(expandedMapImageView)
+        addSubview(expandedRaceDescriptionView)
+        
+        expandedMapDescriptionView.addSubview(mapDescriptionLabel)
+        expandedMapImageView.addSubview(mapImageView)
+        expandedRaceDescriptionView.addSubview(raceDescriptionTopImage)
+        expandedRaceDescriptionView.addSubview(raceDescriptionLabel)
+        
+        setupConstraintsForExpanded()
     }
     
     private func setupConstraintsForExpanded() {
@@ -214,16 +244,24 @@ private extension RaceExpandedView {
         }
         
         self.mapImageView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(15).priority(980)
-            make.trailing.equalToSuperview().offset(-15).priority(980)
+            make.height.equalTo(160).priority(970)
+            make.width.equalTo(165).priority(970)
+            make.centerX.centerY.equalToSuperview()
             make.top.equalToSuperview().offset(10).priority(980)
             make.bottom.equalToSuperview().offset(-10).priority(980)
+        }
+        
+        self.raceDescriptionTopImage.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(15)
+//            make.trailing.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(15).priority(980)
+//            make.bottom.equalToSuperview().offset(-15).priority(900)
         }
         
         self.raceDescriptionLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview().offset(15).priority(980)
+            make.top.equalTo(raceDescriptionTopImage.snp.bottom).offset(15).priority(980)
             make.bottom.equalToSuperview().offset(-15).priority(980)
         }
         
@@ -242,8 +280,6 @@ private extension RaceExpandedView {
             make.top.equalTo(self.expandedMapImageView.snp.bottom)
             make.bottom.width.equalToSuperview()
         }
-        
-        
     }
     
     private func setupSeparators() {
@@ -271,28 +307,14 @@ private extension RaceExpandedView {
             make.width.top.equalToSuperview()
         }
         
-        expandedRaceDescriptionView.addSubview(lastSeparatorRaceDesc)
+        addSubview(lastSeparatorRaceDesc)
         lastSeparatorRaceDesc.snp.makeConstraints { (make) in
             make.height.equalTo(0.5)
-            make.width.bottom.equalToSuperview()
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview().offset(0.5)
         }
         
     }
-    
-    private func setupExpandedViews() {
-        //MARK: Description Expanded view
-        addSubview(expandedMapDescriptionView)
-        addSubview(expandedMapImageView)
-        addSubview(expandedRaceDescriptionView)
-        
-        expandedMapDescriptionView.addSubview(mapDescriptionLabel)
-        expandedMapImageView.addSubview(mapImageView)
-        expandedRaceDescriptionView.addSubview(raceDescriptionLabel)
-        
-        setupConstraintsForExpanded()
-    }
-    
-   
     
     private func setup() {
         //        isExpanded = false
@@ -302,7 +324,6 @@ private extension RaceExpandedView {
         topStack.snp.makeConstraints { (make) in
             make.leading.top.width.equalToSuperview()
             make.height.equalTo(50)
-           
         }
         
         timeView.addSubview(timeTextLabel)
@@ -342,24 +363,24 @@ private extension RaceExpandedView {
     
     
     private func getLabelHeight(text: String, font: UIFont, paddings: CGFloat) -> CGFloat {
-           
-           let screenWidth = UIScreen.main.bounds.width
-           let labelWidth = screenWidth - ( 2 * paddings ) // (side paddings)
-           let height = text.height(withConstrainedWidth: labelWidth, font: font)
-           return height
-       }
-       
-       private func calculateExpandedHeight(mapDescription: String, raceDescription: String, mapImage: UIImage?, sidePaddings: CGFloat?) {
-           let mapDescriptionHeight = getLabelHeight(text: mapDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2 //paddings top/bottom
-           var mapImageHeight: CGFloat = 0
-           if let image = mapImage {
-               mapImageHeight = image.size.height + (10 * 2) //paddings top/bottom
-           }
-           let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 12), paddings: 15) + 15*2  //paddings top/bottom
-           print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
-           expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight
-           print(#function, expandedHeight )
-       }
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let labelWidth = screenWidth - ( 2 * paddings ) // (side paddings)
+        let height = text.height(withConstrainedWidth: labelWidth, font: font)
+        return height
+    }
+    
+    private func calculateExpandedHeight(mapDescription: String, raceDescription: String, mapImage: UIImage?, sidePaddings: CGFloat?) {
+        let mapDescriptionHeight = getLabelHeight(text: mapDescription, font: .systemFont(ofSize: 14), paddings: 15) + 15*2 //paddings top/bottom
+        var mapImageHeight: CGFloat = 0
+        if let image = mapImage {
+            mapImageHeight = 160 + (10 * 2) //paddings top/bottom
+        }
+        let raceDescriptionHeight = getLabelHeight(text: raceDescription, font: .systemFont(ofSize: 14), paddings: 15) + 15*2 + 12 + 15 //paddings top/bottom + imageHeight + padding image/label
+        print(mapDescriptionHeight, mapImageHeight, raceDescriptionHeight)
+        expandedHeight = mapDescriptionHeight + mapImageHeight + raceDescriptionHeight
+        print(#function, expandedHeight )
+    }
 }
 
 
